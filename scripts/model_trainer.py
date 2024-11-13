@@ -167,8 +167,9 @@ def evaluate_model(model, X_test, y_test):
 
 
 def export_model(model):
+    logging.info(f"Exporting model")
     with open(OUTPUT_FILE, 'wb') as f_out:
-        pickle.dump(model)
+        pickle.dump(model, f_out)
 
 
 def main():
