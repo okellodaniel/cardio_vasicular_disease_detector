@@ -9,9 +9,10 @@ scikit-learn = "*"
 pandas = "*"
 numpy = "*"
 seaborn = "*"
-xgboost = "*"
 flask = "*"
 requests = "*"
+xgboost = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

@@ -1,5 +1,6 @@
 import logging
 import io
+import os
 import re
 import contextlib
 import requests
@@ -11,6 +12,7 @@ import random
 import pickle
 
 import matplotlib.pyplot as plt
+from dotenv import load_dotenv
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction import DictVectorizer
@@ -21,8 +23,13 @@ from sklearn.metrics import roc_auc_score, roc_curve, accuracy_score, classifica
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
+# Load environment variables
+
+load_dotenv()
+
 # File and Parameter Settings
-OUTPUT_FILE = 'model.bin'
+output_file = os.getenv('OUTPUT_FILE')
+dataset_path = os.getenv('DATASET_PATH')
 
 # Mappings for categorical values
 CHOL_LEVELS = {1: 'normal', 2: 'above_normal', 3: 'well_above_normal'}
@@ -168,14 +175,13 @@ def evaluate_model(model, X_test, y_test):
 
 def export_model(model):
     logging.info(f"Exporting model")
-    with open(OUTPUT_FILE, 'wb') as f_out:
+    with open(output_file, 'wb') as f_out:
         pickle.dump(model, f_out)
 
 
 def main():
     # Load and prepare the data
-    df = load_and_prepare_data(
-        '../dataset/cardio_vascular_disease_dataset.csv')
+    df = load_and_prepare_data(dataset_path)
 
     # Split the data
     data_splits = split_data(df)
