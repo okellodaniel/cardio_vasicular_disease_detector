@@ -43,7 +43,7 @@ def predict():
             {
                 'prediction': prediction_rounded,
                 'cardio': bool(prediction >= 0.5),
-                'predictionPercent': f"{prediction_rounded*100}%",
+                'prediction%': f"{prediction_rounded*100}%",
                 'threshold': float(0.5)
             })
 
