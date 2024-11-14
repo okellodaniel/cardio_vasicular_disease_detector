@@ -17,12 +17,14 @@ logger = logging.getLogger(__name__)
 prediction_model_path = '../model/model.bin'
 
 model = None
+dv = None
 
 try:
-    model = pickle.load(open(prediction_model_path, 'rb'))
-    logger.info("Model loaded successfully.")
+    dv, model = pickle.load(open(prediction_model_path, 'rb'))
+    logger.info("DictVectorizer instance and model loaded successfully.")
 except Exception as e:
     logger.error(f"Failed to load the model: {e}")
+    dv = None
     model = None
 
 
@@ -32,13 +34,17 @@ def predict():
         patient = request.get_json()
         logger.info(f"Received patient data: {patient}")
 
-        prediction = predict_cardio(patient, model)
+        prediction = predict_cardio(patient, model, dv)
         logger.info(f"Prediction: {prediction}")
+
+        prediction_rounded = round(float(prediction), 4)
 
         return jsonify(
             {
-                'prediction': float(prediction),
-                'cardio': bool(prediction >= 0.5)
+                'prediction': prediction_rounded,
+                'cardio': bool(prediction >= 0.5),
+                'predictionPercent': f"{prediction_rounded*100}%",
+                'threshold': float(0.5)
             })
 
     except Exception as e:
@@ -46,18 +52,20 @@ def predict():
         return jsonify({'error': 'Prediction failed'}), 500
 
 
-def predict_cardio(patient, model):
+def predict_cardio(patient, model, dv):
     logger.debug(f"Creating DMatrix for {patient} object")
 
-    dt = DictVectorizer(sparse=False)
+    try:
+        pratient_transformed = dv.transform(patient)
 
-    pratient_transformed = dt.transform([patient])
+        patient_dmatrix = xgb.DMatrix(pratient_transformed)
 
-    patient_dmatrix = xgb.DMatrix(pratient_transformed)
+        y_pred = model.predict(patient_dmatrix)
 
-    y_pred = model.predict(patient_dmatrix)
+        return y_pred[0]
 
-    return y_pred
+    except Exception as e:
+        logger.error("Error: %s" % e)
 
 
 if __name__ == '__main__':

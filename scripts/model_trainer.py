@@ -110,7 +110,7 @@ def one_hot_encode(data_splits):
     return {
         "X_full_train": X_full_train, "X_train": X_train, "X_val": X_val, "X_test": X_test,
         "y_full_train": data_splits["y_full_train"], "y_train": data_splits["y_train"],
-        "y_val": data_splits["y_val"], "y_test": data_splits["y_test"]
+        "y_val": data_splits["y_val"], "y_test": data_splits["y_test"], "dv": dv
     }
 
 
@@ -173,10 +173,10 @@ def evaluate_model(model, X_test, y_test):
     plt.show()
 
 
-def export_model(model):
+def export_model(model, dv):
     logging.info(f"Exporting model")
     with open(output_file, 'wb') as f_out:
-        pickle.dump(model, f_out)
+        pickle.dump((dv, model), f_out)
 
 
 def main():
@@ -196,7 +196,10 @@ def main():
     # Evaluate the model on the test set
     evaluate_model(model, encoded_data["X_test"], encoded_data["y_test"])
 
-    export_model(model)
+    # Obtain an instance of dict-vectorizer
+    dv = encoded_data["dv"]
+
+    export_model(model, dv)
 
 
 if __name__ == "__main__":
