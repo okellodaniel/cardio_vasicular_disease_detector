@@ -194,7 +194,7 @@ def main():
         encoded_data["X_full_train"], encoded_data["y_full_train"])
 
     # Evaluate the model on the test set
-    evaluate_model(model, encoded_data["X_test"], encoded_data["y_test"])
+    # evaluate_model(model, encoded_data["X_test"], encoded_data["y_test"])
 
     # Obtain an instance of dict-vectorizer
     dv = encoded_data["dv"]
