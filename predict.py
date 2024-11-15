@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-prediction_model_path = '../model/model.bin'
+prediction_model_path = 'model.bin'
 
 model = None
 dv = None
@@ -69,4 +69,5 @@ def predict_cardio(patient, model, dv):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
+    app.run(host='0.0.0.0', port=5050, debug=True)
