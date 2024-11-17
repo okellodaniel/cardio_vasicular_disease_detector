@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'cardio-vasicular-disease-detector-hidden-surf-7542'
+app = 'cardio-vasicular-disease-detector'
 primary_region = 'lhr'
 
 [build]
