@@ -97,5 +97,6 @@ async def predict(patient: PatientData):
 async def scalar_html():
     return get_scalar_api_reference(
         openapi_url=app.openapi_url,
-        title=app.title,
+        title="cardio vascular disease detector",
+
     )
