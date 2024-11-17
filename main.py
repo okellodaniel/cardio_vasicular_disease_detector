@@ -36,6 +36,8 @@ except Exception as e:
     model = None
 
 # schema
+
+
 class PatientData(BaseModel):
     age: int = Field(..., description="Age of the patient in days")
     gender: Literal["male",
@@ -90,9 +92,13 @@ async def predict(patient: PatientData):
         logger.error(f"Error during prediction: {e}")
         raise HTTPException(status_code=500, detail="Prediction failed")
 
+
 @app.get("/", include_in_schema=False)
 async def scalar_html():
     return get_scalar_api_reference(
         openapi_url=app.openapi_url,
         title=app.title,
     )
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=5050)
