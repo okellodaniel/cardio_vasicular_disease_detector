@@ -25,4 +25,4 @@ RUN pipenv install --system --deploy
 EXPOSE 5050
 
 # Command to run the application using Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5050"]
+CMD ["uvicorn", "main:app","--port", "5050"]
