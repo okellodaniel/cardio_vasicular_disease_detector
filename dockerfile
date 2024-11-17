@@ -44,12 +44,13 @@ ENV OUTPUT_FILE=model.bin
 # Set the working directory
 WORKDIR /app
 
-# Install pip and required dependencies
-RUN pip install --upgrade pip
+# Install pip, pipenv and required dependencies
+RUN RUN pip install --upgrade pip && pip install pipenv
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+COPY Pipfile Pipfile.lock ./
+
+# Install Python dependencies in system-wide packages
+RUN pipenv install --system --deploy
 
 # Copy the rest of the application code
 COPY . .
