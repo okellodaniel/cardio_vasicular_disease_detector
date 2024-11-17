@@ -24,5 +24,5 @@ RUN pipenv install --system --deploy
 # Expose the application port
 EXPOSE 5050
 
-# Command to run the application using Uvicorn
-CMD ["uvicorn", "main:app","--port", "5050"]
+# Command to run the application using gunicorn
+CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:5050"]
