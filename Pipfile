@@ -16,6 +16,7 @@ uvicorn = "0.32.0"
 scalar-fastapi = "1.0.3"
 fastapi = "0.115.5"
 gunicorn = "23.0.0"
+exceptiongroup = "*"
 
 [dev-packages]
 
