@@ -4,19 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-matplotlib = "*"
-scikit-learn = "*"
-pandas = "*"
-numpy = "*"
-seaborn = "*"
-flask = "*"
-requests = "*"
-xgboost = "*"
-python-dotenv = "*"
-gunicorn = "*"
-fastapi = "*"
-uvicorn = "*"
-scalar-fastapi = "*"
+matplotlib = "3.9.2"
+scikit-learn = "1.5.2"
+pandas = "2.2.3"
+numpy = "2.1.3"
+seaborn = "0.13.2"
+requests = "2.32.3"
+xgboost = "2.1.2"
+python-dotenv = "1.0.1"
+uvicorn = "0.32.0"
+scalar-fastapi = "1.0.3"
+fastapi = "0.115.5"
 
 [dev-packages]
 

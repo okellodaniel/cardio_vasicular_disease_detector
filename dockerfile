@@ -45,7 +45,7 @@ ENV OUTPUT_FILE=model.bin
 WORKDIR /app
 
 # Install pip, pipenv and required dependencies
-RUN RUN pip install --upgrade pip && pip install pipenv
+RUN pip install --upgrade pip && pip install pipenv
 
 COPY Pipfile Pipfile.lock ./
 
