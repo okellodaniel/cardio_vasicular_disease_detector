@@ -6,24 +6,18 @@ Cardiovascular disease (CVD) is the leading cause of mortality globally, often p
 
 ---
 ## Problem Description
-Cardiovascular diseases are responsible for the highest mortality rate globally. Identifying high-risk individuals early is critical for timely interventions that can save lives and reduce healthcare costs. This project uses the Kaggle Cardiovascular Disease dataset, which contains 70,000 patient records with 13 features, to build a machine learning model capable of predicting the likelihood of cardiovascular disease.
-
-Key benefits of this project include:
-
-- Personalized Risk Assessment: Supports healthcare providers in tailoring interventions to individual needs.
-- Proactive Healthcare: Enables earlier treatment, reducing disease progression and associated costs.
-- Scalable Deployment: Designed for real-time prediction and integration with healthcare systems.
-
+Cardiovascular diseases are responsible for the highest mortality rate globally. Identifying high-risk individuals early is critical for timely interventions that can save lives and reduce healthcare costs. This project uses the Kaggle Cardiovascular Disease dataset, which contains 70,000 patient records with 12 features, to build a machine learning model capable of predicting the likelihood of cardiovascular disease.
 ___
 
 ## Architecture Overview
 
-The project is designed for modularity, and efficiency. Below is an architectural overview:
+The project is designed with modularity, and efficiency in mind. Below is an architectural overview:
 
+![alt text](./images/architecture.png)
 ### Components
 1. Data Pipeline:
    - Data cleaning, preprocessing, and feature engineering are handled programmatically using a python script.
-   - Dataset: Kaggle Cardiovascular Dataset containing 70,000 records.
+   - [Dataset]('https://www.kaggle.com/datasets/sulianova/cardiovascular-disease-dataset'): Kaggle Cardiovascular Dataset containing 70,000 records.
 
 2. Modeling:
    - XGBoost model for prediction, trained with hyperparameter tuning.
@@ -115,21 +109,31 @@ This dataset was chosen for its comprehensiveness and relevance to building a ma
 Following EDA on the dataset, a correlation matrix was evaluated and results were aas follows
 ![alt text](./images/image.png)
 
-Height and Weight (0.29):
-There is a moderate positive correlation (0.29) between height and weight, indicating that taller individuals tend to have higher weights. This is the strongest correlation observed in this matrix.
-Other Variables and Weak Correlations:
-The rest of the correlations between variables are quite low, suggesting minimal linear relationships between these features. For example, age shows weak correlations with all other variables, with the highest correlation being only 0.054 with weight. This means age does not have a strong linear relationship with other variables in this dataset.
-Blood Pressure Variables (ap_hi and ap_lo) also show low correlations with each other (0.016), which is unusual, as systolic and diastolic blood pressures are often expected to be correlated. This low correlation might suggest inconsistencies in data recording or could indicate that these variables are independent in this specific dataset.
-No Strong Predictors:
-The lack of strong correlations suggests that none of these variables alone has a significant linear relationship with others. This could imply that these features may contribute only weakly to each other in terms of prediction if using linear models.
-Note: Given the weak relationships, this dataset might benefit from more complex, non-linear analysis techniques, as linear models may not capture significant patterns effectively.
+Observations were;
+1. Strong Correlation Between `ap_hi` and `ap_lo`:
 
-Therefore the choice was to test
+- Correlation coefficient = `0.733`.
+- This strong positive correlation was expected, as systolic and diastolic blood pressures are physiologically related.
 
-Decision tree
-Random forest
-XGBoost
-The best performing model will be based on the best prediction performance.
+2. Moderate Correlations were also observed for`weight` showing moderate positive correlations with: 
+- `height` (0.306): Taller individuals generally weighing more.
+- `ap_hi` (0.270) and `ap_lo` (0.252): Higher weight often being associated with elevated blood pressure.
+
+3. The Weak Correlations observered were `age` is weakly correlated with:
+- `ap_hi` (0.209): Older individuals having a slightly higher systolic blood pressure.
+- `ap_lo` (0.156): A similar trend for diastolic blood pressure.
+- `age` and `weight` (0.055): Minimal association between age and weight.
+- `height` and` blood pressure` (`ap_hi`: 0.017, `ap_lo`: 0.035): Negligible correlation between height and blood pressure.
+
+4. The negative Correlations observerd were:
+- `age` and `height` (-0.086): A weak negative correlation indicates older individuals tending to be shorter, possibly due to age-related changes like bone density loss.
+
+These observations paved way to take the assumption that given the weak relationships, there was justification to use more complex, non-linear analysis techniques, as linear models would not capture significant patterns effectively.
+
+Therefore my choice for the project spanned testing
+1. Decision tree
+2. Random forest
+3. XGBoost
 
 The project evaluated several models before finalizing **XGBoost**. Below is a comparison of their performance:
 
@@ -139,17 +143,17 @@ Below is the comparison of models based on their performance metrics:
 
 | Model                 | AUC-ROC  | Accuracy |
 |-----------------------|----------|----------|
-| **Decision Tree**     | 79.59   | 73.21%   |
-| **Random Forest**     | 80.35   | 73.64%   |
-| **XGBoost**           | 80.41  | 73.77%   |
+| **Decision Tree**     | 79.2%   | 73.05%   |
+| **Random Forest**     | 79.9%   | 72.76%   |
+| **XGBoost**           | 79.9%  | 73.19%   |
 
 ### Best Model Selection
 
 The **XGBoost model** was chosen as the final model based on its high AUC-ROC (80.14%) and accuracy (80.14%). It demonstrated robust performance with fine-tuned parameters:
 - **Learning Rate (eta):** 0.1
 - **Max Depth:** 5
-- **Min Child Weight:** 16
-- **Boosting Rounds:** 140
+- **Min Child Weight:** 15
+- **Boosting Rounds:** 100
 
 This model balances generalization and accuracy, making it suitable for deployment in production.
 
