@@ -264,20 +264,14 @@ print(response.json())
 
 ## Future Improvements
 
-1. **Integration with Healthcare Systems:**
-   - Stream real-time data from IoT devices for continuous monitoring.
-
-2. **Model Enhancements:**
+1. **Model Enhancements:**
    - Explore deep learning models for complex feature interactions.
    - Investigate ensemble learning techniques to improve prediction reliability.
-
-3. **Explainability:**
-   - Implement SHAP (SHapley Additive exPlanations) for better interpretability of predictions.
-
-4. **Scalability:**
+   - 
+2. Scalability:
    - Deploy on Kubernetes to handle high traffic and ensure availability.
 
-5. **User Interface:**
-   - Add a web-based dashboard for healthcare professionals to interact with predictions.
+3. User Interface:
+   - Add a web-based dashboard.
 
 ---
