@@ -129,7 +129,7 @@ def train_xgboost_model(X, y):
     xgb_params = {
         'eta': 0.1,
         'max_depth': 5,
-        'min_child_weight': 16,
+        'min_child_weight': 15,
         'objective': 'binary:logistic',
         'eval_metric': 'auc',
         'seed': 1,
