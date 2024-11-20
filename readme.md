@@ -250,7 +250,7 @@ response = requests.post(url, json=data)
 print(response.json())
 ```
 3. **Using the api document**
-  - Navigate to [__http://localhost:5050__](https://cardio-vasicular-disease-detector.fly.dev) or [__https://cardio-vasicular-disease-detector.fly.dev__](https://cardio-vasicular-disease-detector.fly.dev)
+  - Navigate to [__http://localhost:5050__](http://localhost:5050) or [__https://cardio-vasicular-disease-detector.fly.dev__](https://cardio-vasicular-disease-detector.fly.dev)
   - Go to the "Predict" section and click "Test Request".
   - In the popup, paste the following JSON in the request body and click "Send":
     ```
