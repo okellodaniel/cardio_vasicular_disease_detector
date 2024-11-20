@@ -37,6 +37,9 @@ GLUC_LEVELS = {1: 'normal', 2: 'above_normal', 3: 'well_above_normal'}
 GENDER_VALUES = {1: 'female', 2: 'male'}
 YES_NO_VALUES = {0: 'no', 1: 'yes'}
 
+valid_height_range = (120, 220)  # 120 cm to 220 cm
+valid_weight_range = (30, 200)  # 30 kg to 200 kg
+
 # Data Preparation
 
 
@@ -56,7 +59,16 @@ def load_and_prepare_data(filepath):
     df['smoke'] = df['smoke'].map(YES_NO_VALUES)
     df['active'] = df['active'].map(YES_NO_VALUES)
     df['alco'] = df['alco'].map(YES_NO_VALUES)
+    df['age'] = (df['age'] / 365.25).astype(int)
+    df['ap_lo'] = df['ap_lo'].apply(lambda x: x if 40 <= x <= 200 else None)
+    df['ap_hi'] = df['ap_hi'].apply(lambda x: x if 90 <= x <= 250 else None)
+    df = df[(df['height'] >= valid_height_range[0]) &
+            (df['height'] <= valid_height_range[1])]
+    df = df[(df['weight'] >= valid_weight_range[0]) &
+            (df['weight'] <= valid_weight_range[1])]
+    df = df.dropna()
     df = df.drop('id', axis=1)
+
     return df
 
 
