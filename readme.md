@@ -249,14 +249,32 @@ data = {
 response = requests.post(url, json=data)
 print(response.json())
 ```
-
+3. **Using the api document**
+  - Navigate to [__http://localhost:5050__](https://cardio-vasicular-disease-detector.fly.dev) or [__https://cardio-vasicular-disease-detector.fly.dev__](https://cardio-vasicular-disease-detector.fly.dev)
+  - Go to the "Predict" section and click "Test Request".
+  - In the popup, paste the following JSON in the request body and click "Send":
+    ```
+    {
+        "age": 18300,
+        "gender": "male",
+        "height": 168,
+        "weight": 62,
+        "ap_hi": 120,
+        "ap_lo": 80,
+        "cholesterol": "normal",
+        "gluc": "normal",
+        "smoke": "no",
+        "alco": "no",
+        "active": "yes"
+      }
+    ``` 
 **Expected Response**
 ```json
 {
-  "prediction": 0.2345,
-  "cardio": false,
-  "prediction%": "23.45%",
-  "threshold": 0.5
+    "prediction": 0.5709,
+    "cardio": true,
+    "prediction%": "57.09%",
+    "threshold": 0.5
 }
 ```
 
